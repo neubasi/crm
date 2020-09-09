@@ -8,10 +8,10 @@ namespace API.Modelle
 {
     public class Bestellung: Basismodell
     {
-        [Required]
+       // [Required]
         public string Text { get; set; }
 
-        [Required]
+       // [Required]
         public long FK_Artikel { get; set; }
     }
 }

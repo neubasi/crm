@@ -52,7 +52,6 @@ namespace API.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

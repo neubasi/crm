@@ -40,7 +40,7 @@ namespace API.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(nullable: false),
+                    Text = table.Column<string>(nullable: true),
                     FK_Artikel = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
