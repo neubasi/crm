@@ -28,7 +28,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Basiscontext>(opt =>
-               opt.UseInMemoryDatabase("CRM"));
+         opt.UseSqlServer(Configuration.GetConnectionString("SQL_SERVER")));
             services.AddControllers();
         }
 

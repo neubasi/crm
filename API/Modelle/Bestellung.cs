@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace API.Modelle
 {
-    public class Basismodell
+    public class Bestellung: Basismodell
     {
-        [Key]
-        public long Id { get; set; }
+        [Required]
+        public string Text { get; set; }
+
+        [Required]
+        public long FK_Artikel { get; set; }
     }
 }

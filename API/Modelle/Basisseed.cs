@@ -16,7 +16,7 @@ namespace API.Modelle
                     DbContextOptions<Basiscontext>>()))
             {
                 // Look for any movies.
-                if (context.Kunde.Any())
+                if (context.Kunde.Any() && context.Bestellung.Any() && context.Artikel.Any())
                 {
                     return;   // DB has been seeded
                 }
@@ -42,6 +42,63 @@ namespace API.Modelle
                         Name = "Rio Bravo"
                     }
                 );
+
+                context.Bestellung.AddRange(
+                   new Bestellung
+                   {
+                       Text = "Meine erste Bestellung.",
+                       FK_Artikel = 1
+                   },
+
+                   new Bestellung
+                   {
+                       Text = "Meine zweite Bestellung.",
+                       FK_Artikel = 1
+                   },
+
+                   new Bestellung
+                   {
+                       Text = "Meine dritte Bestellung.",
+                       FK_Artikel = 2
+                   },
+
+                   new Bestellung
+                   {
+                       Text = "Meine vierte Bestellung.",
+                       FK_Artikel = 3
+                   }
+               );
+
+                context.Artikel.AddRange(
+                   new Artikel
+                   {
+                       Name = "Artikel 1",
+                       Einheit = "Stück",
+                       Preis = 25
+                   },
+
+                   new Artikel
+                   {
+                       Name = "Artikel 2",
+                       Einheit = "Stück",
+                       Preis = 21
+                   },
+
+                   new Artikel
+                   {
+                       Name = "Artikel 3",
+                       Einheit = "Stück",
+                       Preis = 12
+                   },
+
+                   new Artikel
+                   {
+                       Name = "Artikel 4",
+                       Einheit = "Palette",
+                       Preis = 20
+                   }
+               );
+
                 context.SaveChanges();
             }
         }
