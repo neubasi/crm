@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(Basiscontext))]
-    [Migration("20200909151358_InitialCreate")]
+    [Migration("20200910121002_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,12 +53,17 @@ namespace API.Migrations
                     b.Property<long>("FK_Artikel")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("FK_Kunde")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FK_Artikel");
+
+                    b.HasIndex("FK_Kunde");
 
                     b.ToTable("Bestellung");
                 });
@@ -71,6 +76,7 @@ namespace API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -83,6 +89,12 @@ namespace API.Migrations
                     b.HasOne("API.Modelle.Artikel", null)
                         .WithMany()
                         .HasForeignKey("FK_Artikel")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Modelle.Kunde", null)
+                        .WithMany()
+                        .HasForeignKey("FK_Kunde")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

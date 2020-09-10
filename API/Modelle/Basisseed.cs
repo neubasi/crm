@@ -21,6 +21,10 @@ namespace API.Modelle
                     return;   // DB has been seeded
                 }
 
+                
+                
+
+
                 context.Kunde.AddRange(
                     new Kunde
                     {
@@ -42,32 +46,6 @@ namespace API.Modelle
                         Name = "Rio Bravo"
                     }
                 );
-
-                context.Bestellung.AddRange(
-                   new Bestellung
-                   {
-                       Text = "Meine erste Bestellung.",
-                       FK_Artikel = 1
-                   },
-
-                   new Bestellung
-                   {
-                       Text = "Meine zweite Bestellung.",
-                       FK_Artikel = 1
-                   },
-
-                   new Bestellung
-                   {
-                       Text = "Meine dritte Bestellung.",
-                       FK_Artikel = 2
-                   },
-
-                   new Bestellung
-                   {
-                       Text = "Meine vierte Bestellung.",
-                       FK_Artikel = 3
-                   }
-               );
 
                 context.Artikel.AddRange(
                    new Artikel
@@ -98,6 +76,40 @@ namespace API.Modelle
                        Preis = 20
                    }
                );
+
+                /*
+                context.Bestellung.AddRange(
+                  new Bestellung
+                  {
+                      Text = "Meine erste Bestellung.",
+                      FK_Artikel = 1,
+                      FK_Kunde = 1
+                  },
+
+                  new Bestellung
+                  {
+                      Text = "Meine zweite Bestellung.",
+                      FK_Artikel = 1,
+                      FK_Kunde = 1
+                  },
+
+                  new Bestellung
+                  {
+                      Text = "Meine dritte Bestellung.",
+                      FK_Artikel = 2,
+                      FK_Kunde = 2
+                  },
+
+                  new Bestellung
+                  {
+                      Text = "Meine vierte Bestellung.",
+                      FK_Artikel = 3,
+                      FK_Kunde = 3
+                  }
+              );*/
+
+
+
 
                 context.SaveChanges();
             }

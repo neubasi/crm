@@ -1,4 +1,6 @@
+
 <div class="container-fluid" style="margin-top:2rem">
+
   <div class="row">
 
     <div class="col-4">
@@ -48,6 +50,13 @@
             <mat-label>Artikel auswählen</mat-label>
             <mat-select [(ngModel)]="modelBestellung.fK_Artikel" name="123" id="123">
               <mat-option *ngFor="let a of artikel" [value]="a.id">{{a.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Kunde auswählen</mat-label>
+            <mat-select [(ngModel)]="modelBestellung.fK_Kunde" name="1234" id="1234">
+              <mat-option *ngFor="let k of kunden" [value]="k.id">{{k.name}}</mat-option>
             </mat-select>
           </mat-form-field>
           <br>
@@ -121,7 +130,8 @@
           <tr *ngFor="let a of bestellungen">
             <td>{{a.id}}</td>
             <td>{{a.text}}</td>
-            <td>{{getArtikelbyId(a.fK_Artikel)}} </td>
+            <td >{{getArtikelbyId(a.fK_Artikel)}} </td>
+            <td >{{getKundebyId(a.fK_Kunde)}} </td>
             <td style="cursor: pointer;" (click)="deleteData('Bestellung', a.id)">X</td>
           </tr>
         </tbody>
@@ -130,3 +140,6 @@
     </div>
   </div>
 </div>
+
+
+

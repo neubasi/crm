@@ -17,7 +17,13 @@ export class StammdatenComponent implements OnInit {
   modelBestellung = new Bestellung();
   submitted = false;
 
-  constructor(private dataService: StammdatenService) { }
+
+
+
+  ArtikelMap = new Map();
+  KundeMap = new Map();
+
+  constructor(public dataService: StammdatenService) { }
 
   ngOnInit(): void {
     this.getArtikel();
@@ -29,33 +35,43 @@ export class StammdatenComponent implements OnInit {
     this.dataService.getData('Artikel').subscribe((data: Array<Artikel>) => {
       // console.log(data);
       this.artikel = data;
+      this.artikel.forEach(element => {
+        this.ArtikelMap.set(element.id, element.name);
+      });
     });
+
   }
 
   getKunden() {
     this.dataService.getData('Kunde').subscribe((data: Array<Kunde>) => {
       // console.log(data);
       this.kunden = data;
+      this.kunden.forEach(element => {
+        this.KundeMap.set(element.id, element.name);
+      });
     });
   }
 
   getBestellungen() {
     this.dataService.getData('Bestellung').subscribe((data: Array<Bestellung>) => {
-      console.log(data);
+     // console.log(data);
       this.bestellungen = data;
     });
   }
 
   addData(stammdaten: string) {
-    console.log(this.modelBestellung.id)
     let stamm;
     if (stammdaten === 'Kunde') { stamm = this.modelKunde; }
     if (stammdaten === 'Artikel') { stamm = this.modelArtikel; }
     if (stammdaten === 'Bestellung') { stamm = this.modelBestellung; }
-    this.dataService.addData(stammdaten, stamm).subscribe(data => {
+    this.dataService.addData(stammdaten, stamm).subscribe(() => {
       this.getArtikel();
       this.getBestellungen();
       this.getKunden();
+      this.dataService.progressSpinner(true, 'Speichern...');
+    }, error => {
+      this.dataService.progressSpinner(false, 'Error: ' + JSON.stringify(error));
+      console.log(error)
     });
   }
 
@@ -64,20 +80,18 @@ export class StammdatenComponent implements OnInit {
       this.getArtikel();
       this.getBestellungen();
       this.getKunden();
+      this.dataService.progressSpinner(true, 'Speichern...');
     });
   }
 
-  getArtikelbyId(id: any) {
 
-    if(this.artikel !== undefined) {
-      console.log(this.artikel)
-      this.artikel.forEach(element => {
-        if (element.id === id) {
-          return element.name;
-        }
-      });
-    }
+  getArtikelbyId(id: any) {
+      return this.ArtikelMap.get(id);
   }
+
+  getKundebyId(id: any) {
+    return this.KundeMap.get(id);
+}
 
   onSubmit() { this.submitted = true; }
 
@@ -99,5 +113,6 @@ class Bestellung {
   text: string;
   id: number;
   fK_Artikel: number;
+  fK_Kunde: number;
 }
 

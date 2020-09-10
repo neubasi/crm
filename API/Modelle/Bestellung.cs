@@ -13,5 +13,7 @@ namespace API.Modelle
 
        // [Required]
         public long FK_Artikel { get; set; }
+
+        public long FK_Kunde { get; set; }
     }
 }

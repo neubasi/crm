@@ -11,20 +11,29 @@ namespace API.Modelle
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             // Use the shadow property as a foreign key
+            // Use the shadow property as a foreign key
+                        
             modelBuilder.Entity<Bestellung>()
            .HasOne<Artikel>()
            .WithMany()
            .HasForeignKey(p => p.FK_Artikel);
+
+
+            modelBuilder.Entity<Bestellung>()
+           .HasOne<Kunde>()
+           .WithMany()
+           .HasForeignKey(p => p.FK_Kunde);
         }
+
 
         public Basiscontext(DbContextOptions<Basiscontext> options)
             : base(options)
         {
         }
-        public DbSet<Kunde> Kunde { get; set; }
+
         public DbSet<Bestellung> Bestellung { get; set; }
-        public DbSet<API.Modelle.Artikel> Artikel { get; set; }
+        public DbSet<Kunde> Kunde { get; set; }
+        public DbSet<Artikel> Artikel { get; set; }
 
 
     }

@@ -27,7 +27,7 @@ namespace API.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,8 @@ namespace API.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(nullable: true),
-                    FK_Artikel = table.Column<long>(nullable: false)
+                    FK_Artikel = table.Column<long>(nullable: false),
+                    FK_Kunde = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,12 +53,23 @@ namespace API.Migrations
                         principalTable: "Artikel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bestellung_Kunde_FK_Kunde",
+                        column: x => x.FK_Kunde,
+                        principalTable: "Kunde",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bestellung_FK_Artikel",
                 table: "Bestellung",
                 column: "FK_Artikel");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bestellung_FK_Kunde",
+                table: "Bestellung",
+                column: "FK_Kunde");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -66,10 +78,10 @@ namespace API.Migrations
                 name: "Bestellung");
 
             migrationBuilder.DropTable(
-                name: "Kunde");
+                name: "Artikel");
 
             migrationBuilder.DropTable(
-                name: "Artikel");
+                name: "Kunde");
         }
     }
 }
