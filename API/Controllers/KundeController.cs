@@ -79,6 +79,12 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Kunde>> PostKunde(Kunde kunde)
         {
+            Console.WriteLine("SIMON NEUBAUER");
+            Console.WriteLine(kunde.ToString());
+
+         
+
+
             _context.Kunde.Add(kunde);
             await _context.SaveChangesAsync();
 

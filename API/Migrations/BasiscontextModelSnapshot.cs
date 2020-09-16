@@ -14,7 +14,7 @@ namespace API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -48,20 +48,26 @@ namespace API.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("FK_Artikel")
+                    b.Property<long>("ArtikelId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("FK_Kunde")
+                    b.Property<int>("Betrag")
+                        .HasColumnType("int");
+
+                    b.Property<long>("KundeId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Menge")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FK_Artikel");
+                    b.HasIndex("ArtikelId");
 
-                    b.HasIndex("FK_Kunde");
+                    b.HasIndex("KundeId");
 
                     b.ToTable("Bestellung");
                 });
@@ -74,7 +80,6 @@ namespace API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -84,15 +89,15 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Modelle.Bestellung", b =>
                 {
-                    b.HasOne("API.Modelle.Artikel", null)
+                    b.HasOne("API.Modelle.Artikel", "ArtikelNavigation")
                         .WithMany()
-                        .HasForeignKey("FK_Artikel")
+                        .HasForeignKey("ArtikelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Modelle.Kunde", null)
+                    b.HasOne("API.Modelle.Kunde", "KundeNavigation")
                         .WithMany()
-                        .HasForeignKey("FK_Kunde")
+                        .HasForeignKey("KundeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

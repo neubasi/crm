@@ -18,5 +18,10 @@ namespace API.Modelle
 
         [Required]
         public int Preis { get; set; }
-    }
+
+        [InverseProperty(nameof(Bestellung.ArtikelNavigation))]
+        public IEnumerable<Bestellung> Bestellungen = new List<Bestellung>();
+
+      
+}
 }

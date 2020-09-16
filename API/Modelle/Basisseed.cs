@@ -15,15 +15,16 @@ namespace API.Modelle
                 serviceProvider.GetRequiredService<
                     DbContextOptions<Basiscontext>>()))
             {
+                
                 // Look for any movies.
-                if (context.Kunde.Any() && context.Bestellung.Any() && context.Artikel.Any())
+                if (context.Kunde.Any() && context.Artikel.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                
-                
 
+
+                
 
                 context.Kunde.AddRange(
                     new Kunde
@@ -47,6 +48,10 @@ namespace API.Modelle
                     }
                 );
 
+        
+          
+
+               
                 context.Artikel.AddRange(
                    new Artikel
                    {
@@ -77,41 +82,52 @@ namespace API.Modelle
                    }
                );
 
+             
+
                 /*
                 context.Bestellung.AddRange(
                   new Bestellung
                   {
                       Text = "Meine erste Bestellung.",
-                      FK_Artikel = 1,
-                      FK_Kunde = 1
+                      ArtikelId = 1,
+                      KundeId = 1,
+                      Menge = 1,
+                      Betrag = 99
                   },
 
                   new Bestellung
                   {
                       Text = "Meine zweite Bestellung.",
-                      FK_Artikel = 1,
-                      FK_Kunde = 1
+                      ArtikelId = 1,
+                      KundeId = 1,
+                      Menge = 10,
+                      Betrag = 99
                   },
 
                   new Bestellung
                   {
                       Text = "Meine dritte Bestellung.",
-                      FK_Artikel = 2,
-                      FK_Kunde = 2
+                      ArtikelId = 2,
+                      KundeId = 1,
+                      Menge = 5,
+                      Betrag = 99
                   },
 
                   new Bestellung
                   {
                       Text = "Meine vierte Bestellung.",
-                      FK_Artikel = 3,
-                      FK_Kunde = 3
+                      ArtikelId = 3,
+                      KundeId = 1,
+                      Menge = 20,
+                      Betrag = 99
                   }
               );*/
 
 
 
-
                 context.SaveChanges();
+
+               
             }
         }
     }

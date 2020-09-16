@@ -17,10 +17,13 @@
 </div>
 <footer class="footer" [ngStyle]="{'background-color':this.dataService.progressColor}">
   <div class="container-fluid">
+    <div style="display: flex;" *ngIf="progressOn === false">Ladevorgang abgeschlossen.
+    </div>
     <div style="display: flex;" *ngIf="progressOn === true">
       <div class="uploader-status">
         <mat-spinner style="margin-right: 7px;" color="white" diameter=15></mat-spinner>
-      </div><span style="font-size: 600;">{{this.dataService.progressMessage}}</span>
+      </div><span style="font-size: 600;overflow: hidden;
+      white-space: nowrap; text-overflow: ellipsis;">{{this.dataService.progressMessage}} </span>
     </div>
   </div>
 </footer>

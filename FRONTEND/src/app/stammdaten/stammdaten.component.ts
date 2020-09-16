@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { StammdatenService } from './stammdaten.service';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-stammdaten',
@@ -10,13 +20,26 @@ export class StammdatenComponent implements OnInit {
 
   artikel: Array<Artikel>;
   kunden: Array<Kunde>;
-  bestellungen: Array<Bestellung>;
+  bestellungen: Array<BestellungGUI>;
 
   modelArtikel = new Artikel();
   modelKunde = new Kunde();
-  modelBestellung = new Bestellung();
+  modelBestellung = new BestellungGUI();
   submitted = false;
 
+  /*
+  selected = new FormControl('valid', [
+    Validators.required,
+    Validators.pattern('valid'),
+  ]);
+
+  selected2 = new FormControl('valid', [
+    Validators.required,
+    Validators.pattern('valid'),
+  ]);*/
+
+ 
+  matcher = new MyErrorStateMatcher();
 
 
 
@@ -53,13 +76,14 @@ export class StammdatenComponent implements OnInit {
   }
 
   getBestellungen() {
-    this.dataService.getData('Bestellung').subscribe((data: Array<Bestellung>) => {
-     // console.log(data);
+    this.dataService.getData('Bestellung').subscribe((data: Array<BestellungGUI>) => {
+    //  console.log(data);
       this.bestellungen = data;
     });
   }
 
   addData(stammdaten: string) {
+    console.log( this.modelBestellung)
     let stamm;
     if (stammdaten === 'Kunde') { stamm = this.modelKunde; }
     if (stammdaten === 'Artikel') { stamm = this.modelArtikel; }
@@ -85,14 +109,6 @@ export class StammdatenComponent implements OnInit {
   }
 
 
-  getArtikelbyId(id: any) {
-      return this.ArtikelMap.get(id);
-  }
-
-  getKundebyId(id: any) {
-    return this.KundeMap.get(id);
-}
-
   onSubmit() { this.submitted = true; }
 
 }
@@ -109,10 +125,22 @@ class Kunde {
   id: number;
 }
 
-class Bestellung {
+class BestellungGUI {
   text: string;
   id: number;
-  fK_Artikel: number;
-  fK_Kunde: number;
+  artikelId: number;
+  artikelText: string;
+  kundeId: number;
+  kundeText: string;
+  menge: number;
+  betrag: number;
 }
+
+/*
+class BestellungDB {
+  text: string;
+  menge: number;
+  artikelId: number;
+  kundeId: number;
+}*/
 

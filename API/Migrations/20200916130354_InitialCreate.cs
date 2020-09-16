@@ -27,7 +27,7 @@ namespace API.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,35 +41,37 @@ namespace API.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(nullable: true),
-                    FK_Artikel = table.Column<long>(nullable: false),
-                    FK_Kunde = table.Column<long>(nullable: false)
+                    Menge = table.Column<int>(nullable: false),
+                    ArtikelId = table.Column<long>(nullable: false),
+                    KundeId = table.Column<long>(nullable: false),
+                    Betrag = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bestellung", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bestellung_Artikel_FK_Artikel",
-                        column: x => x.FK_Artikel,
+                        name: "FK_Bestellung_Artikel_ArtikelId",
+                        column: x => x.ArtikelId,
                         principalTable: "Artikel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bestellung_Kunde_FK_Kunde",
-                        column: x => x.FK_Kunde,
+                        name: "FK_Bestellung_Kunde_KundeId",
+                        column: x => x.KundeId,
                         principalTable: "Kunde",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bestellung_FK_Artikel",
+                name: "IX_Bestellung_ArtikelId",
                 table: "Bestellung",
-                column: "FK_Artikel");
+                column: "ArtikelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bestellung_FK_Kunde",
+                name: "IX_Bestellung_KundeId",
                 table: "Bestellung",
-                column: "FK_Kunde");
+                column: "KundeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

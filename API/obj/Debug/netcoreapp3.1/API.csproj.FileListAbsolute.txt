@@ -153,3 +153,4 @@ D:\Projekte\crm\API\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Works
 D:\Projekte\crm\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.InMemory.dll
 D:\Projekte\crm\API\obj\Debug\netcoreapp3.1\API.csproj.CoreCompileInputs.cache
 D:\Projekte\crm\API\obj\Debug\netcoreapp3.1\API.MvcApplicationPartsAssemblyInfo.cache
+D:\Projekte\crm\API\bin\Debug\netcoreapp3.1\AutoMapper.dll
